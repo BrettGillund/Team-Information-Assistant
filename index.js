@@ -1,5 +1,8 @@
-// Things that need to be included in this command line applicatoin:
+// questions : 
+    //Can we use a CSS template (materialize) for the HTML in this project?
+    //Do we need to make seperate propts 
 
+// Things that need to be included in this command line applicatoin:
 
 // 1. List prompt with selectable team members.
 
@@ -19,40 +22,15 @@
 
 // 9. when finish building my team is selected exit the application and the HTML is generated.
 
-const inquirer = require('inquirer');
+const inquirer = require("inquirer");
+const Manager = require("./lib/manager");
+const Employee = require('./lib/employee');
+const Manager = require("./lib/manager");
 const fs = require('fs');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/intern');
+const generateHtml = require('./lib/GenerateMarkDown');
 
-
-
-function createHtml(fileData) {
-    fs.writeFile(`file name`, fileData, (error) =>
-    error ? console.error(error) : console.log('success!'));
-}
-
-
-// function mainMenu() {
-
-//     inquirer.prompt(
-//         {
-//             type: 'list',
-//             name: 'Main Menu',
-//             message: 'Please select an option from the below menu:',
-//             list: ['view current team', 'create a new team']
-//         }
-//     )
-// }
-
-
-function currentTeam() {
-    inquirer.prompt(
-        {
-            type: 'list',
-            name: 'Main Menu',
-            message: 'Please select a team below to view their information:',
-            list: ['', '']
-        }
-    )
-}
 
 function teamCreation() {
 
@@ -73,21 +51,87 @@ function teamCreation() {
     {
         name: 'office number',
         message: `please provide your office number:`
-    },
+    }
+    ]).then(mainMenu())
+}
 
+function mainMenu() {
 
+    inquirer.prompt(
+        {
+            type: 'list',
+            name: 'Main Menu',
+            message: 'Please select an option from the below menu:',
+            list: ['Add Engineer', 'Add Intern', 'Finish Building My Team']
+        }
+    ).then().then().then()
+}
 
-
-
-
-
+function engineerCreation(){    
+    inquirer.prompt([
 
     {
-        type: 'list',
-        name: 'Team Memebers',
-        message: 'Please select a team membember from the below list to view their information:',
-        list: ['', '', '', '', '', '']
+        name: 'engineer name',
+        message: `please provide the engineer's name:`
+    },
+    {
+        name: 'employee ID',
+        message: `please provide your employee ID:`
+    },
+    {
+        name: 'email address',
+        message: `please provide your email address:`
+    },
+    {
+        name: 'office number',
+        message: `please provide your github link:`
     }
-
     ])
+    
 }
+function internCreation(){
+    inquirer.prompt([
+
+        {
+            name: 'interns name',
+            message: `please provide the team manager's name:`
+        },
+        {
+            name: 'employee ID',
+            message: `please provide your employee ID:`
+        },
+        {
+            name: 'email address',
+            message: `please provide your email address:`
+        },
+        {
+            name: 'school',
+            message: `please provide your school:`
+        }
+        ])
+
+}
+
+// function createHtml(fileData) {
+//     fs.writeFile(`file name`, fileData, (error) =>
+//     error ? console.error(error) : console.log('success!'));
+// }
+
+
+
+teamCreation();
+
+// ---------------------------------------------------------SAND BOX -----------------------------------------------------------------//
+
+
+
+// function currentTeam() {
+//     inquirer.prompt(
+//         {
+//             type: 'list',
+//             name: 'Main Menu',
+//             message: 'Please select a team below to view their information:',
+//             list: ['', '']
+//         }
+//     )
+// }
