@@ -25,7 +25,6 @@
 const inquirer = require("inquirer");
 const Manager = require("./lib/manager");
 const Employee = require('./lib/employee');
-const Manager = require("./lib/manager");
 const fs = require('fs');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/intern');
@@ -65,6 +64,7 @@ function mainMenu() {
             list: ['Add Engineer', 'Add Intern', 'Finish Building My Team']
         }
     ).then().then().then()
+    // if ()
 }
 
 function engineerCreation(){    
@@ -122,16 +122,3 @@ function internCreation(){
 teamCreation();
 
 // ---------------------------------------------------------SAND BOX -----------------------------------------------------------------//
-
-
-
-// function currentTeam() {
-//     inquirer.prompt(
-//         {
-//             type: 'list',
-//             name: 'Main Menu',
-//             message: 'Please select a team below to view their information:',
-//             list: ['', '']
-//         }
-//     )
-// }
