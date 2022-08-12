@@ -21,37 +21,48 @@
 // 8. when intern is selected user is prompted to enter the intern’s name, ID, email, and school, and then is redirected to the main menu.
 
 // 9. when finish building my team is selected exit the application and the HTML is generated.
+// const Employee = require('./lib/employee');
 
 const inquirer = require("inquirer");
 const Manager = require("./lib/manager");
-const Employee = require('./lib/employee');
 const fs = require('fs');
+// const Choice = require("inquirer/lib/objects/choice");
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/intern');
 const generateHtml = require('./lib/GenerateMarkDown');
-
+const teamArray = []
 
 function teamCreation() {
 
     inquirer.prompt([
 
     {
-        name: 'managers name',
-        message: `please provide the team manager's name:`
-    },
-    {
-        name: 'employee ID',
+        type: 'input',
+        name: 'id',
         message: `please provide your employee ID:`
     },
     {
-        name: 'email address',
+        type: 'input',
+        name: 'name',
+        message: `please provide the team manager's name:`
+    },
+    {
+        type: 'input',
+        name: 'email',
         message: `please provide your email address:`
     },
     {
-        name: 'office number',
+        type: 'input',
+        name: 'officeNum',
         message: `please provide your office number:`
     }
-    ]).then(mainMenu())
+    ]).then(({ id, name, email, officeNum }) => {
+        const manager = new Manager(id, name, email, officeNum);
+        teamArray.push(manager);
+        // console.log(manager);
+        console.log(teamArray);
+        mainMenu();
+    }).catch(err => console.log(err)).finally(() => console.log('Ran intial function'));
 }
 
 function mainMenu() {
@@ -59,63 +70,93 @@ function mainMenu() {
     inquirer.prompt(
         {
             type: 'list',
-            name: 'Main Menu',
+            name: 'employee',
             message: 'Please select an option from the below menu:',
-            list: ['Add Engineer', 'Add Intern', 'Finish Building My Team']
+            choices: ['Add Engineer', 'Add Intern', 'Finish Building My Team']
         }
-    ).then().then().then()
-    // if ()
+    ).then((choice) => {
+        switch(choice.employee) {
+            case 'Add Engineer':
+                engineerCreation()
+                break;
+
+            case 'Add Intern':
+                internCreation()
+                break;
+            
+            default:
+            createHtml()
+        }
+    }).catch(err => console.log(err));
 }
 
 function engineerCreation(){    
     inquirer.prompt([
 
     {
-        name: 'engineer name',
-        message: `please provide the engineer's name:`
-    },
-    {
-        name: 'employee ID',
+        type: 'input',
+        name: 'id',
         message: `please provide your employee ID:`
     },
     {
-        name: 'email address',
+        type: 'input',
+        name: 'name',
+        message: `please provide the engineer's name:`
+    },
+    {
+        type: 'input',
+        name: 'email',
         message: `please provide your email address:`
     },
     {
-        name: 'office number',
+        type: 'input',
+        name: 'github',
         message: `please provide your github link:`
     }
-    ])
+    ]).then(({id, name, email, github}) => {
+        const engineer = new Engineer(id, name, email, github);
+        teamArray.push(engineer);
+        // console.log(engineer);
+        mainMenu();
+    }).catch(err => console.log(err))
     
 }
 function internCreation(){
     inquirer.prompt([
 
         {
-            name: 'interns name',
-            message: `please provide the team manager's name:`
-        },
-        {
-            name: 'employee ID',
+            name: 'id',
             message: `please provide your employee ID:`
         },
         {
-            name: 'email address',
+            name: 'name',
+            message: `please provide the team manager's name:`
+        },
+        {
+            name: 'email',
             message: `please provide your email address:`
         },
         {
             name: 'school',
             message: `please provide your school:`
         }
-        ])
+        ]).then(({id, name, email, school}) => {
+            const intern = new Intern(id, name, email, school);
+            teamArray.push(intern);
+            // console.log(intern);
+            mainMenu();
+        }).catch(err => console.log(err));
 
 }
 
-// function createHtml(fileData) {
-//     fs.writeFile(`file name`, fileData, (error) =>
-//     error ? console.error(error) : console.log('success!'));
-// }
+function createHtml() {
+    // const fileName = `${fileData.Manager.managersName.toLowerCase().split(' ').join(' ')}.html`
+
+    // fs.generateHtml(teamArray);
+    console.log(teamArray);
+    fs.writeFile('index.html', generateHtml(teamArray), (error) =>
+    error ? console.error(error) : console.log('success!'));
+}
 
 
 
