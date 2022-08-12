@@ -116,7 +116,6 @@ function engineerCreation(){
     ]).then(({id, name, email, github}) => {
         const engineer = new Engineer(id, name, email, github);
         teamArray.push(engineer);
-        // console.log(engineer);
         mainMenu();
     }).catch(err => console.log(err))
     
