@@ -26,7 +26,6 @@
 const inquirer = require("inquirer");
 const Manager = require("./lib/manager");
 const fs = require('fs');
-// const Choice = require("inquirer/lib/objects/choice");
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/intern');
 const generateHtml = require('./lib/GenerateMarkDown');
@@ -59,7 +58,6 @@ function teamCreation() {
     ]).then(({ id, name, email, officeNum }) => {
         const manager = new Manager(id, name, email, officeNum);
         teamArray.push(manager);
-        // console.log(manager);
         console.log(teamArray);
         mainMenu();
     }).catch(err => console.log(err)).finally(() => console.log('Ran intial function'));
@@ -129,7 +127,7 @@ function internCreation(){
         },
         {
             name: 'name',
-            message: `please provide the team manager's name:`
+            message: `please provide the intern's name:`
         },
         {
             name: 'email',
@@ -142,16 +140,13 @@ function internCreation(){
         ]).then(({id, name, email, school}) => {
             const intern = new Intern(id, name, email, school);
             teamArray.push(intern);
-            // console.log(intern);
             mainMenu();
         }).catch(err => console.log(err));
 
 }
 
 function createHtml() {
-    // const fileName = `${fileData.Manager.managersName.toLowerCase().split(' ').join(' ')}.html`
 
-    // fs.generateHtml(teamArray);
     console.log(teamArray);
     fs.writeFile('index.html', generateHtml(teamArray), (error) =>
     error ? console.error(error) : console.log('success!'));
